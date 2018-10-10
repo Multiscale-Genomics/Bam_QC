@@ -1,13 +1,13 @@
 {
-  "_id": "process_test",
-  "name": "Process Test",
-  "title": "Test Workflow",
+  "_id": "process_bamqc",
+  "name": "Process Bamqc",
+  "title": "Bamqc Workflow",
   "short_description": "Generates file with some text",
   "owner": {
     "institution": "EMBL-EBI",
-    "author": "Mark McDowall",
-    "contact": "mcdowall@ebi.ac.uk",
-    "url": "https://github.com/Multiscale-Genomics/mg-process-test"
+    "author": "Reham Fatima,
+    "contact": "reham@ebi.ac.uk",
+    "url": "https://github.com/rehamFatima/Bam_QC"
   },
   "external": true,
   "has_custom_viewer": false,
@@ -17,7 +17,7 @@
   "infrastructure": {
     "memory": 1,
     "cpus": 1,
-    "executable": "/home/pmes/code/mg-process-test/process_test.py",
+    "executable": "/home/pmes/code/bamqc/process_bamqc.py",
     "clouds": {}
   },
   "input_files": [
@@ -25,7 +25,7 @@
           "name": "input",
           "description": "Input file",
           "help": "path to the input file",
-          "file_type": ["TXT"],
+          "file_type": ["BAM"],
           "data_type": [
               "data_chip_seq", "data_idamid_seq", "data_mnase_seq", "data_rna_seq",
               "data_wgbs", "data_hic"
@@ -41,14 +41,14 @@
       "required": true,
       "allow_multiple": false,
       "file": {
-        "file_type": "TXT",
+        "file_type": "HTML",
         "meta_data": {
           "visible": true,
-          "tool": "process_test",
+          "tool": "process_bamqc",
           "description": "Output"
         },
-        "file_path": "test.txt",
-        "data_type": "text",
+        "file_path": "macs2.Human_bamqc.html",
+        "data_type": "html",
         "compressed": ""
       }
     }
