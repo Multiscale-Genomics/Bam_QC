@@ -1,10 +1,9 @@
-# mg-process-test
+# Bam_QC
 
-[![Documentation Status](https://readthedocs.org/projects/mg-process-test/badge/?version=latest)](http://mg-process-test.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://travis-ci.org/Multiscale-Genomics/mg-process-test.svg?branch=master)](https://travis-ci.org/Multiscale-Genomics/mg-process-test) [![Code Health](https://landscape.io/github/Multiscale-Genomics/mg-process-test/master/landscape.svg?style=flat)](https://landscape.io/github/Multiscale-Genomics/mg-process-test/master)
+[![Documentation Status](https://readthedocs.org/projects/Bam_QC/badge/?version=latest)](http://Bam_QC.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://travis-ci.org/Multiscale-Genomics/Bam_QC.svg?branch=master)](https://travis-ci.org/Multiscale-Genomics/Bam_QC) [![Code Health](https://landscape.io/github/Multiscale-Genomics/Bam_QC/master/landscape.svg?style=flat)](https://landscape.io/github/Multiscale-Genomics/Bam_QC/master)
 
-Example pipelines file that is ready to run in the VRE matching the code in the HowTo documentation.
 
-This repo structure workflows and tools can be forked and used as the base template for new tools and workflows. It should have all of the base functionality and is set up for unit testing and with pylint to ensure code clarity.
+This repository wraps BamQC as tool and pipeline. BamQC gives a summary statistic report of different aspects of a bam file. It generates an html file with the reports on the passed bam file, both summarized, and graphs.
 
 # Requirements
 - pyenv and pyenv-virtualenv
@@ -22,9 +21,9 @@ Directly from GitHub:
 ```
 cd ${HOME}/code
 
-git clone https://github.com/Multiscale-Genomics/mg-process-test.git
+git clone https://github.com/rehamFatima/Bam_QC.git
 
-cd mg-process-test
+cd Bam_QC
 ```
 
 Create the Python environment
