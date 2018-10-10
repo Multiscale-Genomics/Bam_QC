@@ -29,8 +29,8 @@ cd Bam_QC
 Create the Python environment
 
 ```
-pyenv-virtualenv 2.7.12 mg-process-test
-pyenv activate mg-process-test
+pyenv-virtualenv 2.7.12 mg-process-fastq_bamqc
+pyenv activate mg-process-fastq_bamqc
 pip install -e .
 pip install -r requirements.txt
 ```
