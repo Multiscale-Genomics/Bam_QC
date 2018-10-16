@@ -23,12 +23,12 @@ import argparse
 from basic_modules.workflow import Workflow
 from utils import logger
 
-from mg_process_test.tool.testTool import testTool
+from Bam_QC.tool.bamqc import bamQC
 
 # ------------------------------------------------------------------------------
 
 
-class process_test(Workflow):
+class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-methods
     """
     Functions for demonstrating the pipeline set up.
     """
@@ -53,30 +53,36 @@ class process_test(Workflow):
 
     def run(self, input_files, metadata, output_files):
         """
-        Main run function for processing a test file.
+        This pipeline analyses a given bam file and produces html file
+        as the reporting output file.
 
         Parameters
         ----------
         input_files : dict
-           Dictionary of file locations
+           Dictionary of file locations. These should include:
+
+            bam : str
+                Location for the bam file
+
         metadata : list
            Required meta data
+
         output_files : dict
-           Locations of the output files to be returned by the pipeline
+           Locations of the output html files returned by the pipeline
 
         Returns
         -------
         output_files : dict
-           Locations for the output txt
+           Locations for the output html
         output_metadata : dict
            Matching metadata for each of the files
         """
 
         # Initialise the test tool
-        tt_handle = testTool(self.configuration)
-        tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files)
+        bamqc_handle = bamQC(self.configuration)
+        bqc_files, bqc_meta = bamqc_handle.run(input_files, metadata, output_files)
 
-        return (tt_files, tt_meta)
+        return (bqc_files, bqc_meta)
 
 # ------------------------------------------------------------------------------
 
@@ -93,7 +99,7 @@ def main_json(config, in_metadata, out_metadata):
     logger.info("1. Instantiate and launch the App")
     from apps.jsonapp import JSONApp
     app = JSONApp()
-    result = app.launch(process_test,
+    result = app.launch(process_bamqc,
                         config,
                         in_metadata,
                         out_metadata)
@@ -108,7 +114,7 @@ def main_json(config, in_metadata, out_metadata):
 if __name__ == "__main__":
 
     # Set up the command line parameters
-    PARSER = argparse.ArgumentParser(description="Test Pipeline")
+    PARSER = argparse.ArgumentParser(description="BamQC Pipeline")
     PARSER.add_argument("--config", help="Configuration file")
     PARSER.add_argument("--in_metadata", help="Location of input metadata file")
     PARSER.add_argument("--out_metadata", help="Location of output metadata file")

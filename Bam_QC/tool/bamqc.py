@@ -17,6 +17,9 @@
 from __future__ import print_function
 
 import sys
+import os
+import shlex
+import subprocess
 
 from utils import logger
 
@@ -40,16 +43,16 @@ from basic_modules.metadata import Metadata
 # ------------------------------------------------------------------------------
 
 
-class testTool(Tool):  # pylint: disable=invalid-name
+class bamQC(Tool):  # pylint: disable=invalid-name
     """
-    Tool for writing to a file
+    Tool for statistical and qualitative analysis of a Bam file
     """
 
     def __init__(self, configuration=None):
         """
         Init function
         """
-        logger.info("Test writer")
+        logger.info("BamQC - Bam file stats")
         Tool.__init__(self)
 
         if configuration is None:
@@ -58,7 +61,7 @@ class testTool(Tool):  # pylint: disable=invalid-name
         self.configuration.update(configuration)
 
     @task(returns=bool, file_in_loc=FILE_IN, file_out_loc=FILE_OUT, isModifier=False)
-    def test_writer(self, file_in_loc, file_out_loc):  # pylint: disable=no-self-use
+    def bamqc(self, bam_file_in, html_file_out, params):  # pylint: disable=no-self-use
         """
         Count the number of characters in a file and return a file with the count
 
@@ -74,14 +77,33 @@ class testTool(Tool):  # pylint: disable=invalid-name
         bool
             Writes to the file, which is returned by pyCOMPSs to the defined location
         """
-        try:
-            with open(file_in_loc, "r") as f_in:
-                with open(file_out_loc, "w") as file_handle:
-                    char_count = 0
-                    for line in f_in:
-                        char_count += len(line)
+        bqc_tmp_out = os.path.join(html_file_out)
+        bqc_tmp_out = bqc_tmp_out.replace(
+            "html",
+            "tmp.html"
+            )
 
-                    file_handle.write("There are " + str(char_count) + " chacaters the file")
+        if os.path.isfile(bam_file_in) is False:
+            logger.fatal("FILE NOT FOUND: " + bam_file_in)
+            return False
+
+        command_line = "bamqc " + " ".join(params) + " "
+        command_line += bam_file_in
+        logger.info("BAMQC: command_line: " + command_line)
+
+        try:
+            args = shlex.split(command_line)
+            process = subprocess.Popen(args)
+            process.wait()
+        except (OSError, IOError) as msg:
+            logger.fatal("I/O error({0}) - bamQC: {1}\n{2}".format(
+                msg.errno, msg.strerror, command_line))
+            return False
+
+        try:
+            with open(html_file_out, "r") as f_in:
+                with open(bqc_tmp_out, "w") as file_handle:
+                    file_handle.write(f_in.read())
         except IOError as error:
             logger.fatal("I/O error({0}): {1}".format(error.errno, error.strerror))
             return False
@@ -90,16 +112,16 @@ class testTool(Tool):  # pylint: disable=invalid-name
 
     def run(self, input_files, input_metadata, output_files):
         """
-        The main function to run the test_writer tool
+        The main function to run the bamqc tool
 
         Parameters
         ----------
         input_files : dict
-            List of input files - In this case there are no input files required
+            Input bam file
         input_metadata: dict
-            Matching metadata for each of the files, plus any additional data
+            Matching metadata for the file, plus any additional data
         output_files : dict
-            List of the output files that are to be generated
+            html file containing reports.
 
         Returns
         -------
@@ -109,27 +131,78 @@ class testTool(Tool):  # pylint: disable=invalid-name
             List of matching metadata for the returned files
         """
 
-        results = self.test_writer(
-            input_files["input"],
-            output_files["output"]
+        command_params = self.get_bamqc_params(self.configuration)
+
+        results = self.bamqc(
+            input_files["bam"],
+            output_files["html"],
+            command_params
         )
         results = compss_wait_on(results)
 
         if results is False:
-            logger.fatal("Test Writer: run failed")
+            logger.fatal("Error in bamqc.py: bamQC: run failed with error: {}", results)
             return {}, {}
 
+        output_files_created = {
+            "html": output_files["html"]
+        }
+
         output_metadata = {
-            "output": Metadata(
-                data_type="<data_type>",
-                file_type="txt",
-                file_path=output_files["output"],
-                sources=[input_metadata["input"].file_path],
-                taxon_id=input_metadata["input"].taxon_id,
+            "html": Metadata(
+                data_type="bam",
+                file_type="bam",
+                file_path=output_files["html"],
+                sources=[input_metadata["bam"].file_path],
+                taxon_id=input_metadata["bam"].taxon_id,
                 meta_data={
-                    "tool": "testTool"
+                    "tool": "bamqc"
                 }
             )
         }
 
-        return (output_files, output_metadata)
+        return (output_files_created, output_metadata)
+
+    def get_bamqc_params(self, params):
+        """
+            Function to handle for extraction of commandline parameters
+            Parameters
+            ----------
+            params : dict
+            Returns
+            -------
+            list
+        """
+        command_params = []
+
+        command_parameters = {
+            # General options
+            "bqc_gff": ["--gff"],
+            "bqc_genome": ["--genome"],
+            "bqc_species": ["--species"],
+            "bqc_assembly": ["--assembly"],
+            "bqc_available": ["--available"],
+            "bqc_saved": ["--saved"],
+            "bqc_help": ["--help"],
+            "bqc_version": ["--version"],
+            "bqc_outdir": ["--outdir"],
+            "bqc_extract": ["--extract"],
+            "bqc_java": ["--java"],
+            "bqc_noextract": ["--noextract"],
+            "bqc_nogroup": ["--nogroup"],
+            "bqc_threads": ["--threads"],
+            "bqc_limits": ["--limits"],
+            "bqc_quiet": ["--quiet"],
+            "bqc_dir": ["--dir"]
+        }
+
+        for param in params:
+            if param in command_parameters:
+                if command_parameters[param][1] and params[param] != "":
+                    command_params = command_params + [command_parameters[param][0], params[param]]
+                else:
+                    if command_parameters[param][0] and params[param] is not False:
+                        command_params.append(command_parameters[param][0])
+
+
+        return command_params

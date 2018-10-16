@@ -21,37 +21,38 @@ import os.path
 import pytest
 
 from basic_modules.metadata import Metadata
-from mg_process_test.tool.testTool import testTool
+from Bam_QC.tool.bamqc import bamQC
 
 
-@pytest.mark.testTool
-def test_testTool():
+@pytest.mark.bamqc
+def test_bamqc():
     """
     Test case to ensure that the testTool works.
 
     .. code-block:: none
 
-       pytest tests/test_tool.py
+       pytest tests/test_bamqc.py
     """
     resource_path = os.path.join(os.path.dirname(__file__), "data/")
+    bam_file = resource_path + "macs2.Human.bam"
 
     input_files = {
-        "input": resource_path + "test_input.txt"
+        "bam": bam_file
     }
 
     output_files = {
-        "output": resource_path + "test_output.txt"
+        "html": resource_path + "macs2.Human_bamqc.html"
     }
 
     metadata = {
-        "input": Metadata(
-            "text", "txt", input_files["input"], None,
+        "bam": Metadata(
+            "data_chip_seq", "bam", bam_file, None,
             {"assembly": "test"}
         )
     }
 
-    tt_handle = testTool()
-    tt_handle.run(input_files, metadata, output_files)
+    bamqc_handle = bamQC()
+    bamqc_handle.run(input_files, metadata, output_files)
 
-    assert os.path.isfile(output_files["output"]) is True
-    assert os.path.getsize(output_files["output"]) > 0
+    assert os.path.isfile(output_files["html"]) is True
+    assert os.path.getsize(output_files["html"]) > 0

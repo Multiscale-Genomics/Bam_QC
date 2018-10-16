@@ -21,11 +21,11 @@ import os.path
 import pytest
 
 from basic_modules.metadata import Metadata
-from process_test import process_test
+from process_bamqc import process_bamqc
 
-
-@pytest.mark.testTool
-def test_test_pipeline():
+@pytest.mark.bamqc
+@pytest.mark.pipeline
+def test_pipeline_bamqc():
     """
     Test case to ensure that the Genome indexing pipeline code works.
 
@@ -38,26 +38,26 @@ def test_test_pipeline():
     resource_path = os.path.join(os.path.dirname(__file__), "data/")
 
     input_files = {
-        "input": resource_path + "test_input.txt"
+        "bam": resource_path + "macs2.Human.bam"
     }
 
     metadata = {
-        "input": Metadata(
-            "text", "txt", input_files["input"], None,
+        "bam": Metadata(
+            "data_chip_seq", "bam", input_files["bam"], None,
             {"assembly": "test"}
         )
     }
 
     files_out = {
-        "output": resource_path + 'test.txt',
+        "html": resource_path + 'macs2.Human_bamqc.html',
     }
 
-    tt_handle = process_test()
-    tt_files, tt_meta = tt_handle.run(input_files, metadata, files_out)
+    bqc_handle = process_bamqc()
+    bqc_files, bqc_meta = bqc_handle.run(input_files, metadata, files_out)
 
     # Add tests for all files created
-    for f_out in tt_files:
-        print("GENOME RESULTS FILE:", f_out)
-        assert os.path.isfile(tt_files[f_out]) is True
-        assert os.path.getsize(tt_files[f_out]) > 0
-        assert f_out in tt_meta
+    for f_out in bqc_files:
+        print("BAMQC RESULTS FILE:", f_out)
+        assert os.path.isfile(bqc_files[f_out]) is True
+        assert os.path.getsize(bqc_files[f_out]) > 0
+        assert f_out in bqc_meta
