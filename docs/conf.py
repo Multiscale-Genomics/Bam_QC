@@ -33,7 +33,7 @@ class Mock(MagicMock):
 MOCK_MODULES = []
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
-import mg_process_test.tool
+import Bam_QC.tool
 #import script
 
 

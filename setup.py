@@ -18,11 +18,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='mg_process_test',
+    name='Bam_QC',
+    url='https://github.com/Multiscale-Genomics/Bam_QC',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'pytest'
+        'numpy', 'h5py', 'pytest', 'scipy', 'matplotlib==2.2.3', 'pysam', 'mock',
+        'bz2file', 'ConfigParser', 'future','pytest'
     ],
     setup_requires=[
         'pytest-runner',
@@ -30,4 +32,9 @@ setup(
     tests_require=[
         'pytest',
     ],
+    classifiers=[
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
+        "License :: OSI Approved :: Apache 2.0",
+    ]
 )
