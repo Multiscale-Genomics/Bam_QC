@@ -27,7 +27,6 @@ from Bam_QC.tool.bamqc import bamQC
 
 # ------------------------------------------------------------------------------
 
-
 class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-methods
     """
     Functions for demonstrating the pipeline set up.
@@ -78,18 +77,34 @@ class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-me
            Matching metadata for each of the files
         """
 
+        output_results_files = {}
+        output_metadata = {}
+
+        logger.info("trim_galore")
         # Initialise the test tool
         bamqc_handle = bamQC(self.configuration)
+        logger.progress("TrimGalore", status="RUNNING")
         bqc_files, bqc_meta = bamqc_handle.run(input_files, metadata, output_files)
 
-        return (bqc_files, bqc_meta)
+        try:
+            output_results_files["html"] = bqc_files["html"]
+            output_metadata["html"] = bqc_meta["html"]
+            tool_name = output_metadata["html"].meta_data["tool"]
+            output_metadata["html"].meta_data["tool_description"] = tool_name
+            output_metadata["html"].meta_data["tool"] = "process_bamqc"
+
+        except KeyError:
+            logger.fatal("BamQC: Error while running")
+            return {}, {}
+
+        return (output_results_files, output_metadata)
 
 # ------------------------------------------------------------------------------
 
 
 def main_json(config, in_metadata, out_metadata):
     """
-    Main function
+    Alternative main function
     -------------
 
     This function launches the app using configuration written in
