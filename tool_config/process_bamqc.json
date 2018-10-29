@@ -5,7 +5,7 @@
   "short_description": "Generates file with some text",
   "owner": {
     "institution": "EMBL-EBI",
-    "author": "Reham Fatima,
+    "author": "Reham Fatima",
     "contact": "reham@ebi.ac.uk",
     "url": "https://github.com/rehamFatima/Bam_QC"
   },
@@ -25,7 +25,7 @@
           "name": "bam",
           "description": "Input bam file",
           "help": "path to the input bam file",
-          "file_type": [".bam"],
+          "file_type": ["BAM"],
           "data_type": [
               "data_chip_seq"
           ],
@@ -34,51 +34,6 @@
       }
   ],
   "arguments": [
-      {
-          "name": "bqc_gff",
-          "description": "Use a specified annotation file as annotation set",
-          "help": "Use a specified annotation file as annotation set",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_genome",
-          "description": "The directory containing species/assembly to use.",
-          "help": "The directory containing species/assembly to use.",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_species",
-          "description": "The genome species to use.",
-          "help": "The genome species to use. If the couple species assembly does not exist, BamQC will try to download it.",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_assembly",
-          "description": "The genome assembly associated to the species to use. ",
-          "help": "The genome assembly associated to the species to use. ",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_available",
-          "description": "[Pattern] List the genomes available on the Babraham Server which are filtered using the string Pattern if this is provided. ",
-          "help": "[Pattern] List the genomes available on the Babraham Server which are filtered using the string Pattern if this is provided. ",
-          "type": "",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
       {
           "name": "bqc_saved",
           "description": "List the saved genomes",
@@ -89,46 +44,10 @@
           "value": ""
       },
       {
-          "name": "bqc_help",
-          "description": "Print this help file and exit",
-          "help": "Print this help file and exit",
-          "type": "",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_version",
-          "description": "Print the version of the program and exit",
-          "help": "Print the version of the program and exit",
-          "type": "",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_outdir",
-          "description": "Create all output files in the specified output directory.",
-          "help": "Create all output files in the specified output directory.",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
           "name": "bqc_extract",
           "description": "If set then the zipped output file will be uncompressed in the same directory after it has been created.",
           "help": "If set then the zipped output file will be uncompressed in the same directory after it has been created.",
           "type": "",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_java",
-          "description": "Provides the full path to the java binary you want to use to launch bamqc. If not supplied then java is assumed to be in your path",
-          "help": "Provides the full path to the java binary you want to use to launch bamqc. If not supplied then java is assumed to be in your path",
-          "type": "string",
           "required": false,
           "default": "",
           "value": ""
@@ -150,47 +69,11 @@
           "required": false,
           "default": "",
           "value": ""
-      },
-      {
-          "name": "bqc_threads",
-          "description": "Specifies the number of files which can be processed simultanenously",
-          "help": "Specifies the number of files which can be processed simultanenously",
-          "type": "int",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_limits",
-          "description": "Specifies a non-default file which contains a set of criteria which will be used to determine the warn/error limits for the various modules",
-          "help": "Specifies a non-default file which contains a set of criteria which will be used to determine the warn/error limits for the various modules",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_quiet",
-          "description": "Supress all progress messages on stdout and only report errors.",
-          "help": "Supress all progress messages on stdout and only report errors.",
-          "type": "",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
-      {
-          "name": "bqc_dir",
-          "description": "Selects a directory to be used for temporary files written when generating report images",
-          "help": "Selects a directory to be used for temporary files written when generating report images",
-          "type": "string",
-          "required": false,
-          "default": "",
-          "value": ""
-      },
+      }
   ],
   "output_files": [
     {
-      "name": "macs2.Human_bamqc.html",
+      "name": "html",
       "required": true,
       "allow_multiple": false,
       "file": {
@@ -200,8 +83,7 @@
           "tool": "process_bamqc",
           "description": "Output"
         },
-        "file_path": "macs2.Human_bamqc.html",
-        "data_type": "data_chip_seq",
+        "file_path": "bamqc_report.html",
         "compressed": ""
       }
     }
