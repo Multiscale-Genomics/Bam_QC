@@ -11,16 +11,79 @@ env:
         - TESTENV=docs
         - TESTENV=code
         - TESTENV=pylint
+addons:
+    apt:
+        packages:
+            #system environment
+            - make
+            - python-dev
+            - build-essential
+            - libssl-dev
+            - zlib1g-dev
+            - libbz2-dev
+            - libreadline-dev
+            - libsqlite3-dev
+            - libtiff5-dev
+            - libjpeg8-dev
+            - libfreetype6-dev
+            - liblcms2-dev
+            - libwebp-dev
+            - tcl8.6-dev
+            - tk8.6-dev
+            - python-tk
+            - wget
+            - curl
+            - llvm
+            - libncurses5-dev
+            - libncursesw5-dev
+            - xz-utils
+            - tk-dev
+            - mcl
+            - libgtk2.0-dev
+            - libcurl4-gnutls-dev
+            - unzip
+            - liblzma-dev
+            - libtool
+            - pigz
+            - tree
+
+before_install:
+    - pwd
+    - ls /usr/lib/
+    - mkdir -p ${HOME}/bin
+    - mkdir -p ${HOME}/lib
+    - mkdir -p ${HOME}/code
+    - cd ${HOME}/lib
+    - git clone https://github.com/s-andrews/BamQC.git
+    - cd BamQC
+    - chmod +x bamqc
 
 # command to install dependencies
 install:
+    - cd ${HOME}/build/Multiscale-Genomics/Bam_QC
     - pip install .
     - pip install -r requirements.txt
     - if [[ "$TESTENV" == "docs" ]]; then pip install sphinx;fi
     - if [[ "$TESTENV" == "pylint" ]]; then pip install pylint;fi
+    - cd lib
+    - wget http://www.mirrorservice.org/sites/ftp.apache.org//ant/binaries/apache-ant-1.10.5-bin.zip
+    - unzip apache-ant-1.10.5-bin.zip
+
+before_script:
+
+    - cd ${HOME}/bin
+
+    - ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
+    - ln -s ${HOME}/lib/BamQC/bamqc bamqc
+
+    - chmod +x scripts/travis/harness.sh
+    - chmod +x scripts/travis/docs_harness.sh
+    - chmod +x scripts/travis/pylint_harness.sh
 
 # command to run tests
 script:
-    - if [[ "$TESTENV" == "code" ]]; then pytest -m "not underdeverlopment" mg_process_test; fi
+    - chmod +x scripts/travis/harness.sh
+    - ls -l scripts/travis/harness.sh
+    - if [[ "$TESTENV" == "code" ]]; then ./scripts/travis/harness.sh; fi
     - if [[ "$TESTENV" == "docs" ]]; then ./scripts/travis/docs_harness.sh; fi
     - if [[ "$TESTENV" == "pylint" ]]; then ./scripts/travis/pylint_harness.sh; fi
