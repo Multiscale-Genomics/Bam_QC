@@ -81,7 +81,7 @@ class bamQC(Tool):  # pylint: disable=invalid-name
         bqc_tmp_out = bqc_tmp_out.replace(
             "html",
             "tmp.html"
-            )
+        )
 
         if os.path.isfile(bam_file_in) is False:
             logger.fatal("FILE NOT FOUND: " + bam_file_in)
@@ -151,7 +151,7 @@ class bamQC(Tool):  # pylint: disable=invalid-name
         output_metadata = {
             "html": Metadata(
                 data_type="bam",
-                file_type="bam",
+                file_type="html",
                 file_path=output_files["html"],
                 sources=[input_metadata["bam"].file_path],
                 taxon_id=input_metadata["bam"].taxon_id,
@@ -163,7 +163,8 @@ class bamQC(Tool):  # pylint: disable=invalid-name
 
         return (output_files_created, output_metadata)
 
-    def get_bamqc_params(self, params):
+    @staticmethod
+    def get_bamqc_params(params):
         """
             Function to handle for extraction of commandline parameters
             Parameters
@@ -177,23 +178,23 @@ class bamQC(Tool):  # pylint: disable=invalid-name
 
         command_parameters = {
             # General options
-            "bqc_gff": ["--gff"],
-            "bqc_genome": ["--genome"],
-            "bqc_species": ["--species"],
-            "bqc_assembly": ["--assembly"],
-            "bqc_available": ["--available"],
-            "bqc_saved": ["--saved"],
-            "bqc_help": ["--help"],
-            "bqc_version": ["--version"],
-            "bqc_outdir": ["--outdir"],
-            "bqc_extract": ["--extract"],
-            "bqc_java": ["--java"],
-            "bqc_noextract": ["--noextract"],
-            "bqc_nogroup": ["--nogroup"],
-            "bqc_threads": ["--threads"],
-            "bqc_limits": ["--limits"],
-            "bqc_quiet": ["--quiet"],
-            "bqc_dir": ["--dir"]
+            "bqc_gff": ["--gff", True],
+            "bqc_genome": ["--genome", True],
+            "bqc_species": ["--species", True],
+            "bqc_assembly": ["--assembly", True],
+            "bqc_available": ["--available", False],
+            "bqc_saved": ["--saved", False],
+            "bqc_help": ["--help", False],
+            "bqc_version": ["--version", False],
+            "bqc_outdir": ["--outdir", True],
+            "bqc_extract": ["--extract", False],
+            "bqc_java": ["--java", False],
+            "bqc_noextract": ["--noextract", False],
+            "bqc_nogroup": ["--nogroup", False],
+            "bqc_threads": ["--threads", True],
+            "bqc_limits": ["--limits", True],
+            "bqc_quiet": ["--quiet", False],
+            "bqc_dir": ["--dir", True]
         }
 
         for param in params:
