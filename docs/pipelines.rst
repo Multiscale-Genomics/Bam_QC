@@ -18,9 +18,9 @@ Pipelines
 
 Test Tool
 ---------
-.. automodule:: process_test
+.. automodule:: process_bamqc
 
-   This is a demonstration pipeline using the testTool.
+   This is a pipeline using BamQC for bam file stats.
 
    Running from the command line
    =============================
@@ -37,7 +37,7 @@ Test Tool
    Returns
    -------
    output : file
-      Text file with a single entry
+      Html file with all the statistics
 
    Example
    -------
@@ -46,10 +46,10 @@ Test Tool
    .. code-block:: none
       :linenos:
 
-      cd /home/compss/code/mg-process-test
-      runcompss --lang=python mg_process_test/process_test.py --config /home/compss/code/mg-process-test/tool_config/process_test.json --in_metadata /home/compss/code/mg-process-test/tests/json/input_test.json --out_metadata /home/compss/code/mg-process-test/tests/results.json
+      cd /home/compss/code/Bam_QC
+      runcompss --lang=python Bam_QC/process_bamqc.py --config /home/compss/code/Bam_QC/tool_config/process_bamqc.json --in_metadata /home/compss/code/Bam_QC/tests/json/input_bamqc.json --out_metadata /home/compss/code/Bam_QC/tests/results.json
 
    Methods
    =======
-   .. autoclass:: process_test.process_test
+   .. autoclass:: process_bamqc.process_bamqc
       :members:
