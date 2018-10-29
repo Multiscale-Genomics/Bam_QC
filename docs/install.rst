@@ -23,6 +23,8 @@ Software
 ^^^^^^^^
 
 - Python 2.7.10+
+- Ant
+- BamQC
 
 Python Modules
 ^^^^^^^^^^^^^^
@@ -38,11 +40,11 @@ Directly from GitHub:
 .. code-block:: none
    :linenos:
 
-   git clone https://github.com/Multiscale-Genomics/mg-process-test.git
+   git clone https://github.com/Multiscale-Genomics/Bam_QC.git
 
 Using pip:
 
 .. code-block:: none
    :linenos:
 
-   pip install git+https://github.com/Multiscale-Genomics/mg-process-test.git
+   pip install git+https://github.com/Multiscale-Genomics/Bam_QC.git
