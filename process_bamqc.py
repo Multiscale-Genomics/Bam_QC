@@ -44,7 +44,7 @@ class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-me
            a dictionary containing parameters that define how the operation
            should be carried out, which are specific to each Tool.
         """
-        logger.info("Processing Test")
+        logger.info("Processing BamQC")
         if configuration is None:
             configuration = {}
 
@@ -80,10 +80,10 @@ class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-me
         output_results_files = {}
         output_metadata = {}
 
-        logger.info("trim_galore")
+        logger.info("bamqc")
         # Initialise the test tool
         bamqc_handle = bamQC(self.configuration)
-        logger.progress("TrimGalore", status="RUNNING")
+        logger.progress("BamQC", status="RUNNING")
         bqc_files, bqc_meta = bamqc_handle.run(input_files, metadata, output_files)
 
         try:
