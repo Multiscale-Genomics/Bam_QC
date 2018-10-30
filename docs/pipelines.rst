@@ -16,8 +16,8 @@
 Pipelines
 =========
 
-Test Tool
----------
+Bam QC Tool
+-----------
 .. automodule:: process_bamqc
 
    This is a pipeline using BamQC for bam file stats.

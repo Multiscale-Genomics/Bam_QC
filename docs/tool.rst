@@ -16,9 +16,9 @@
 Tools
 =====
 
-.. automodule:: mg_process_test.tool
+.. automodule:: Bam_QC.tool
 
    Test Tool
    -----------
-   .. autoclass:: mg_process_test.tool.testTool.testTool
+   .. autoclass:: Bam_QC.tool.bamQC
       :members:
