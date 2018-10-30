@@ -23,6 +23,7 @@ Software
 ^^^^^^^^
 
 - Python 2.7.10+
+- Java 8+
 - Ant
 - BamQC
 
