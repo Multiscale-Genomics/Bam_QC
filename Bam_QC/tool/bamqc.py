@@ -150,7 +150,7 @@ class bamQC(Tool):  # pylint: disable=invalid-name
 
         output_metadata = {
             "html": Metadata(
-                data_type="bam",
+                data_type=input_metadata["bam"].data_type,
                 file_type="html",
                 file_path=output_files["html"],
                 sources=[input_metadata["bam"].file_path],
