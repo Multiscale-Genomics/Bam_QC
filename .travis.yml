@@ -61,7 +61,7 @@ before_install:
 
 # command to install dependencies
 install:
-    - cd ${HOME}/lib/Bam_QC
+    - cd ${HOME}/lib/BamQC
     - pip install .
     - pip install -r requirements.txt
     - if [[ "$TESTENV" == "docs" ]]; then pip install sphinx;fi
