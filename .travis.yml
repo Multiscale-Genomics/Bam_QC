@@ -55,12 +55,12 @@ before_install:
     - mkdir -p ${HOME}/code
     - cd ${HOME}/lib
     - git clone https://github.com/s-andrews/BamQC.git
-    - ls
     - cd BamQC
     - chmod +x bamqc
 
 # command to install dependencies
 install:
+    - ls
     - cd ${HOME}/lib/BamQC
     - pip install .
     - pip install -r requirements.txt
