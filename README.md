@@ -26,6 +26,30 @@ git clone https://github.com/rehamFatima/Bam_QC.git
 cd Bam_QC
 ```
 
+Install Ant 
+
+```
+wget http://www.mirrorservice.org/sites/ftp.apache.org//ant/binaries/apache-ant-1.10.5-bin.zip
+unzip apache-ant-1.10.5-bin.zip
+```
+
+Install Bamqc
+```
+git clone https://github.com/s-andrews/BamQC.git
+cd BamQC
+chmod +x bamqc
+```
+
+Setup symlinks
+
+```
+cd ${HOME}/bin
+
+ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
+ln -s ${HOME}/lib/BamQC/bamqc bamqc
+
+```
+
 Create the Python environment
 
 ```
