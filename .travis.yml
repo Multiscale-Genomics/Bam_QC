@@ -60,7 +60,7 @@ before_install:
 
 # command to install dependencies
 install:
-    - cd ${HOME}/build/Multiscale-Genomics/Bam_QC
+    - cd ${HOME}/lib/Bam_QC
     - pip install .
     - pip install -r requirements.txt
     - if [[ "$TESTENV" == "docs" ]]; then pip install sphinx;fi
