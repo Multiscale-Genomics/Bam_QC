@@ -75,7 +75,7 @@ before_script:
 
     - cd ${HOME}/bin
 
-    - ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
+    #- ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
     - ln -s ${HOME}/lib/BamQC/bamqc bamqc
 
     - chmod +x scripts/travis/harness.sh
