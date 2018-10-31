@@ -74,9 +74,9 @@ install:
 before_script:
 
     - cd ${HOME}/bin
-
     #- ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
     - ln -s ${HOME}/lib/BamQC/bamqc bamqc
+    - bamqc --help
     
     - cd ${HOME}/build/rehamFatima/Bam_QC
     - chmod +x scripts/travis/harness.sh
