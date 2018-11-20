@@ -62,7 +62,7 @@ before_install:
 # command to install dependencies
 install:
     - ls
-    - cd ${HOME}/build/rehamFatima/Bam_QC
+    - cd ${HOME}/build/Multiscale-Genomics/Bam_QC
     - pip install .
     - pip install -r requirements.txt
     - if [[ "$TESTENV" == "docs" ]]; then pip install sphinx;fi
@@ -74,11 +74,11 @@ install:
 before_script:
 
     - cd ${HOME}/bin
-    #- ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
+    #- ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant
     - ln -s ${HOME}/lib/BamQC/bamqc bamqc
     - bamqc --help
-    
-    - cd ${HOME}/build/rehamFatima/Bam_QC
+
+    - cd ${HOME}/build/Multiscale-Genomics/Bam_QC
     - chmod +x scripts/travis/harness.sh
     - chmod +x scripts/travis/docs_harness.sh
     - chmod +x scripts/travis/pylint_harness.sh
