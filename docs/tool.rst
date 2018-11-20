@@ -20,5 +20,5 @@ Tools
 
    Test Tool
    -----------
-   .. autoclass:: Bam_QC.tool.bamQC
+   .. autoclass:: Bam_QC.tool.bamqc.bamQC
       :members:
