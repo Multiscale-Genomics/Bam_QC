@@ -58,7 +58,7 @@ before_install:
     - if [[ "$TESTENV" == "code" ]]; then git clone https://github.com/s-andrews/BamQC.git;fi
     - if [[ "$TESTENV" == "code" ]]; then cd BamQC;fi
     - if [[ "$TESTENV" == "code" ]]; then ant;fi
-    - if [[ "$TESTENV" == "code" ]]; then ch bin;fi
+    - if [[ "$TESTENV" == "code" ]]; then cd bin;fi
     - if [[ "$TESTENV" == "code" ]]; then chmod +x bamqc;fi
 
 # command to install dependencies
@@ -77,8 +77,8 @@ before_script:
 
     - cd ${HOME}/bin
     #- ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant
-    - ln -s ${HOME}/lib/BamQC/bin/bamqc bamqc
-    - bamqc --help
+    - if [[ "$TESTENV" == "code" ]]; then ln -s ${HOME}/lib/BamQC/bin/bamqc bamqc;fi
+    - if [[ "$TESTENV" == "code" ]]; then bamqc --help;fi
 
     - cd ${HOME}/build/Multiscale-Genomics/Bam_QC
     - chmod +x scripts/travis/harness.sh
