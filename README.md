@@ -21,12 +21,12 @@ Directly from GitHub:
 ```
 cd ${HOME}/code
 
-git clone https://github.com/rehamFatima/Bam_QC.git
+git clone https://github.com/Multiscale-Genomics/Bam_QC.git
 
 cd Bam_QC
 ```
 
-Install Ant 
+Install Ant
 
 ```
 wget http://www.mirrorservice.org/sites/ftp.apache.org//ant/binaries/apache-ant-1.10.5-bin.zip
@@ -45,7 +45,7 @@ Setup symlinks
 ```
 cd ${HOME}/bin
 
-ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant 
+ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant
 ln -s ${HOME}/lib/BamQC/bamqc bamqc
 
 ```
