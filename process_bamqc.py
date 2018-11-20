@@ -25,6 +25,7 @@ from utils import logger
 
 from Bam_QC.tool.bamqc import bamQC
 
+
 # ------------------------------------------------------------------------------
 
 class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-methods
@@ -99,8 +100,8 @@ class process_bamqc(Workflow):  # pylint: disable=invalid-name,too-few-public-me
 
         return (output_results_files, output_metadata)
 
-# ------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------
 
 def main_json(config, in_metadata, out_metadata):
     """
@@ -123,6 +124,7 @@ def main_json(config, in_metadata, out_metadata):
     logger.info("2. Execution finished; see " + out_metadata)
 
     return result
+
 
 # ------------------------------------------------------------------------------
 

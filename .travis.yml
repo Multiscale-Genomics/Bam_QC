@@ -57,6 +57,8 @@ before_install:
     - cd ${HOME}/lib
     - git clone https://github.com/s-andrews/BamQC.git
     - cd BamQC
+    - ant
+    - ch bin
     - chmod +x bamqc
 
 # command to install dependencies
@@ -75,7 +77,7 @@ before_script:
 
     - cd ${HOME}/bin
     #- ln -s ${HOME}/lib/apache-ant-1.10.5/bin/ant ant
-    - ln -s ${HOME}/lib/BamQC/bamqc bamqc
+    - ln -s ${HOME}/lib/BamQC/bin/bamqc bamqc
     - bamqc --help
 
     - cd ${HOME}/build/Multiscale-Genomics/Bam_QC
