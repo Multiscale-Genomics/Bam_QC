@@ -54,12 +54,12 @@ before_install:
     - mkdir -p ${HOME}/bin
     - mkdir -p ${HOME}/lib
     - mkdir -p ${HOME}/code
-    - cd ${HOME}/lib
-    - git clone https://github.com/s-andrews/BamQC.git
-    - cd BamQC
-    - ant
-    - ch bin
-    - chmod +x bamqc
+    - if [[ "$TESTENV" == "code" ]]; then cd ${HOME}/lib;fi
+    - if [[ "$TESTENV" == "code" ]]; then git clone https://github.com/s-andrews/BamQC.git;fi
+    - if [[ "$TESTENV" == "code" ]]; then cd BamQC;fi
+    - if [[ "$TESTENV" == "code" ]]; then ant;fi
+    - if [[ "$TESTENV" == "code" ]]; then ch bin;fi
+    - if [[ "$TESTENV" == "code" ]]; then chmod +x bamqc;fi
 
 # command to install dependencies
 install:
